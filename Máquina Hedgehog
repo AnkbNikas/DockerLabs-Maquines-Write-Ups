@@ -8,7 +8,7 @@ Siempre como primer paso revisamos que haya conexión con la maquina (objetivo),
 para esto lanzamos un simple ping a la ip objetivo que en este caso al correr la maquina nos ahorra el trabajo
 de localizar el host especifico que en caso de no encontrarlo podemos usar nmap -sn y escanear toda la red.
 ping 172.17.0.2 -c 1
-
+!(Screenshot 2024-10-31 184218.png)
 Luego, identificamos los servicios en los puertos abiertos:
 sudo nmap -p- -sCV 172.17.0.2 -Pn -n --min-rate 5000
 Encontramos los puertos 22 & 80 abiertos
