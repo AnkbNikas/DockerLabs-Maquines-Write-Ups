@@ -9,7 +9,7 @@ para esto lanzamos un simple ping a la ip objetivo que en este caso al correr la
 de localizar el host especifico que en caso de no encontrarlo podemos usar nmap -sn y escanear toda la red.
 ping 172.17.0.2 -c 1
 
-![Texto alternativo](Hedgehog images/Screenshot 2024-10-31 184218.png)
+![Texto alternativo](/Hedgehog images/Screenshot 2024-10-31 184218.png)
 
 
 
