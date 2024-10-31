@@ -10,7 +10,7 @@ de localizar el host especifico que en caso de no encontrarlo podemos usar nmap 
 ping 172.17.0.2 -c 1
 
 Luego, identificamos los servicios en los puertos abiertos:
-sudo nmap -p- -sCV 172.17.0.2 -Pn -n --min-rate 5000 -vvv
+sudo nmap -p- -sCV 172.17.0.2 -Pn -n --min-rate 5000
 Encontramos los puertos 22 & 80 abiertos
 Abrimos el navegador y navegamos a (IP). En la página principal, veremos el mensaje “tails”, 
 lo que nos da una pista del nombre de usuario.
