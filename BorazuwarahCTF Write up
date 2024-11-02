@@ -15,3 +15,4 @@ obtenemos la contraseña y entramos por ssh
 ssh borazuwarah@172.17.0.2
 sudo -l
 sudo /bin/bash
+whoami
