@@ -13,7 +13,10 @@ obtenemos password de camilo
 ssh camilo@172.17.0.2
 sudo -l
 vemos que camilo no tiene permisos
-vemos el correo que nos ponia en la web
+buscamos el correo que nos ponia en la web
+/var/mail$ cd camilo
+ls
+cat correo.txt
 y descubrimos las credenciales del otro usuario
 accedemos a juan por ssh
 ssh juan@172.17.0.2
