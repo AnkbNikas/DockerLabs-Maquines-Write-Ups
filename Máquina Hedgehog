@@ -9,7 +9,7 @@ para esto lanzamos un simple ping a la ip objetivo que en este caso al correr la
 de localizar el host especifico que en caso de no encontrarlo podemos usar nmap -sn y escanear toda la red.
 ping 172.17.0.2 -c 1
 
-! [Descripción del texto de la imagen] (enlace de la imagen)
+! [Descripción del texto de la imagen] (https://github.com/AnkbNikas/DockerLabs-Writeups/blob/722d1e6bd84d70e991be7cc676d8a908965473c7/Hedgehog%20images/Ping.png)
 
 Luego, identificamos los servicios en los puertos abiertos:
 sudo nmap -p- -sCV 172.17.0.2 -Pn -n --min-rate 5000
