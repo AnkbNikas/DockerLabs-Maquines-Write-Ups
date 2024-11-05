@@ -1,5 +1,6 @@
-Máquina Hedgehog
-Dificultad -> Muy fácil
+Maquina: Hedgehog
+Autor: AnkbNikas
+Dificultad: Muy Facil
 
 1.Reconocimiento:
 
