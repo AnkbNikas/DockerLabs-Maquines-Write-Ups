@@ -4,7 +4,7 @@ Dificultad: Muy Facil
 
 ping 172.17.0.2 -c 1
 
-sudo nmap -p- --open -sS -sC -sV --min-rate 5000 -vvv -n -Pn 192.168.52.139 -oN Escaneo
+sudo nmap -p- --open -sS -sC -sV --min-rate 5000 -vvv -n -Pn 172.17.0.2 -oN Escaneo
 Vemos el puerto 80 abierto
 miramos la web https:172.17.0.2
 miramos el codigo y encontramos un posible usuario
