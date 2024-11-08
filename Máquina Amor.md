@@ -27,7 +27,7 @@ vemos que hay este directorio /home/carlota/Desktop/fotos/vacaciones y en dicho 
 
 Este comando nos permite descargar archivos desde ssh
 
-scp carlota@172.17.0.2:/home/carlota/Desktop/fotos/vacaciones/imagen.jpg /home/romabri/Desktop/maquina/
+scp carlota@172.17.0.2:/home/carlota/Desktop/fotos/vacaciones/imagen.jpg /home/ankb/Downloads/
 
 si abrimos la imagen nos encontramos esto:
 
