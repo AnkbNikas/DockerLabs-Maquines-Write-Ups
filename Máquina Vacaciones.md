@@ -5,6 +5,7 @@ Dificultad: Muy Facil
 ping 172.17.0.2 -c 1
 
 sudo nmap -p- --open -sT --min-rate 5000 -vvv -n -Pn 172.17.0.2 -oG allPorts
+
 sudo nmap -sCV -p22,80 172.17.0.2 -oN targeted
 
 miramos la web
