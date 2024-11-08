@@ -1,5 +1,7 @@
 Maquina: Vacaciones
+
 Autor: Romabri
+
 Dificultad: Muy Facil
 
 ping 172.17.0.2 -c 1
