@@ -4,6 +4,8 @@ Autor: Romabri
 
 Dificultad: Muy Facil
 
+![Screenshot 2024-11-08 192314](https://github.com/user-attachments/assets/557d26ce-6f24-43d1-b04f-a67a624d8b3c)
+
 ping 172.17.0.2 -c 1
 
 ![Screenshot 2024-11-08 190145](https://github.com/user-attachments/assets/19f5d6e5-e987-4be9-b8bb-7a39fd4d2fed)
