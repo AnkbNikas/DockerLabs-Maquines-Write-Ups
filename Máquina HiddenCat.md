@@ -6,7 +6,7 @@ Dificultad: Facil
 
 ping 172.17.0.2 -c 1
 
-sudo nmap -p- --open -sCV --min-rate 5000 -sS -Pn -n 172.17.0.2 -vvv
+nmap -p- --open -sT --min-rate 5000 -vvv -n -Pn 172.17.0.2 -oG allPorts
 
 Encontramos los puertos 22, 8080 y 8009 abiertos
 
