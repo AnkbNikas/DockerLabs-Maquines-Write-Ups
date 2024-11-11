@@ -4,6 +4,8 @@ Autor: AnkbNikas
 
 Dificultad: Muy Facil
 
+![image](https://github.com/user-attachments/assets/f6bd58de-24c1-4e90-a49c-013163d99fa6)
+
 1.Reconocimiento:
 
 Escaneo de la red
