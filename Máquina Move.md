@@ -6,21 +6,19 @@ Dificultad: Facil
 
 ![Screenshot 2024-11-14 182124](https://github.com/user-attachments/assets/ba30a676-672a-4ec8-ae50-10572cfde490)
 
-En primer lugar, tras conectarnos a la máquina, utilizamos el comando:
-
 ping 172.17.0.2 -c 1
 
 ![Screenshot 2024-11-14 190703](https://github.com/user-attachments/assets/48c308b4-634e-480b-821c-37775f04516c)
 
-despues scaneamos con nmap un escaneo de puertos y servicios detallado
+Hacemos un escaneo de puertos y servicios detallado con nmap
 
 nmap -p- --open -sT --min-rate 5000 -vvv -n -Pn 172.17.0.2 -oG allPorts
 
+El puerto 22 perteneciente al servicio SSH y el puerto 80 perteneciente al servicio HTTP y el puerto 3000 están abiertos
+
 ![Screenshot 2024-11-14 190720](https://github.com/user-attachments/assets/101b95b4-4844-4090-af75-8897c2d26206)
 
-el puerto 22 perteneciente al servicio SSH y el puerto 80 perteneciente al servicio HTTP y el puerto 3000 están abiertos
-
-volvemos a scanear con nmap para obtener más información sobre ese puerto específicamente.
+volvemos a scanear con nmap para obtener más información sobre esos puertos específicamente
 
 sudo nmap -sCV -p22,80,3000 -v 172.17.0.2
 
@@ -32,7 +30,7 @@ El puerto 80 y el 3000 podemos encontrar servicios web y en el 3000 nos aparece 
 
 ![Screenshot 2024-11-14 190926](https://github.com/user-attachments/assets/748e135b-d660-4227-b5de-428e9d08ea61)
 
-buscamos directorios con la herramienta Gobuster
+Buscamos directorios con la herramienta Gobuster
 
 gobuster dir -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x html,htm,php,txt,xml,js -u http://172.17.0.2
 
@@ -54,7 +52,7 @@ searchsploit grafana 8.3.0
 
 ![Screenshot 2024-11-14 191242](https://github.com/user-attachments/assets/d4b790fc-6118-4965-bc28-14b1b3ee31a7)
 
-copiamos el exploit que encontramos en exploit.db
+Encontramos un exploit en exploit.db y lo copiamos
 
 ![Screenshot 2024-11-14 191336](https://github.com/user-attachments/assets/7dcdfa16-0e40-4607-b981-81b801cad2ed)
 
