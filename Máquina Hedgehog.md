@@ -9,6 +9,7 @@ Dificultad: Muy Facil
 1.Reconocimiento:
 
 Escaneo de la red
+
 Siempre como primer paso revisamos que haya conexión con la maquina (objetivo), 
 para esto lanzamos un simple ping a la ip objetivo que en este caso al correr la maquina nos ahorra el trabajo
 de localizar el host especifico que en caso de no encontrarlo podemos usar nmap -sn y escanear toda la red.
@@ -31,8 +32,10 @@ lo que nos da una pista del nombre de usuario.
 ![URL](https://github.com/user-attachments/assets/f8d0c398-0d3b-4523-ba25-aa041fe057b9)
 
 2.Explotación
+
 Usamos una herramienta de fuerza bruta para obtener acceso al usuario tails utilizando rockyou invertido.
-sudo hydra -l tails -P invertido.txt ssh://(IP)
+
+sudo hydra -l tails -P invertido.txt ssh://172.17.0.2
 
 ![Captura de pantalla 2024-11-17 170210](https://github.com/user-attachments/assets/0c45b4b4-2a83-44e5-b3cc-1488d57aed47)
 
@@ -41,7 +44,8 @@ sudo hydra -l tails -P invertido.txt ssh://(IP)
 ![Captura de pantalla 2024-11-17 170231](https://github.com/user-attachments/assets/99e8a652-e97c-4ba6-84a5-fe3d3fa2b08d)
 
 Nos conectamos via SSH con las credenciales obtenidas.
-ssh tails@(IP)
+
+ssh tails@172.17.0.2
 
 ![SSH](https://github.com/user-attachments/assets/57de162e-0429-4269-bc59-b53d854bbdbc)
 
