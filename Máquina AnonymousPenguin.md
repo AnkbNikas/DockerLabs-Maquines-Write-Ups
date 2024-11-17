@@ -96,7 +96,7 @@ stty rows 24 columns 80
 
 ![Captura de pantalla 2024-11-17 184751](https://github.com/user-attachments/assets/81fba1b2-9690-4b1c-9f39-ed0d71de283e)
 
-Miramos que permisos tiene data
+Miramos que permisos tiene
 
 sudo -l 
 
