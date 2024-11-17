@@ -49,7 +49,9 @@ Usamos las credenciales capturadas para acceder a MySQL:
 
 mysql -u Darren -p
 
-USE user_data; SELECT * FROM user_info;
+USE user_data; 
+
+SELECT * FROM user_info;
 
 Obtención de Credenciales de Jefe
 
