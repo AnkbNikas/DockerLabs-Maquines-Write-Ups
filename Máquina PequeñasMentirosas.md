@@ -33,7 +33,7 @@ Hacemos una busqueda de archivos .txt de la siguiente manera find / -name *.txt 
 
 ls | xargs cat
 
-cat hash_spencer.txt
+cat /srv/ftp/hash_spencer.txt
 
 Encontramos con un hash en MD5, usamos CrackStation y nos da la contrasena: password1
 
