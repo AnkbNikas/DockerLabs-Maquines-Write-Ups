@@ -40,6 +40,7 @@ Encontramos con un hash en MD5, usamos CrackStation y nos da la contrasena: pass
 Cambiamos al usuario spencer
 
 su spencer
+
 password1
 
 sudo -l
