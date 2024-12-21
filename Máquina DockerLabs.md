@@ -14,7 +14,7 @@ Accederemos a la página web
 
 Aplicar Fuzzing para descubrir rutas y archivos con extensiones
 
-gobuster dirb -t 150 -u http://172.17.0.2/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x php,html,txt
+gobuster dir -t 150 -u http://172.17.0.2/ -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -x php,html,txt
 
 Accedemos al archivo machine.php y descubrimos una página web que permite la subida de archivos
 
