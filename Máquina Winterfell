@@ -41,6 +41,7 @@ porelladodelapunta
 baelor 
 fuegoyhielo
 
+crackmapexec smb 172.17.0.2 -u jon -p passwords.txt
 
 Usamos Crackmapexec y encontramos el password para jon:seacercaelinvierno
 
