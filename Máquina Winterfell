@@ -79,8 +79,6 @@ ls -la
 
 Listamos los archivos ocultos y si podemos observar el archivo.mensaje.py, al abrir el mensaje podemos ver que es un script que no nos ayudara mucho
 
-rm .mensaje.py
-
 rm -rf .mensaje.py
 
 nano mensaje.py
