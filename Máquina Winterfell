@@ -49,6 +49,8 @@ smbclient \\\\172.17.0.2\\shared -U jon
 
 Nos conectamos a SMB usando las credenciales y podemos observar que tenemos acceso a un directorio llamado proteccion_del_reino
 
+ls
+
 get proteccion_del_reino
 
 Extraemos el archivo proteccion_del_reino en nuestra máquina local
